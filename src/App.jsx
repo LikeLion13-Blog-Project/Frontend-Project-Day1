@@ -1,11 +1,14 @@
 import styled from "styled-components";
-import "./App.css";
+import "./styles/color.css";
+import "./styles/font.css";
 import { RouterProvider } from "react-router-dom";
 import router from "./Router";
+import { GlobalStyles } from "./styles/GlobalStyles";
 
 function App() {
   return (
     <AppContainer>
+      <GlobalStyles />
       <RouterProvider router={router} />
     </AppContainer>
   );
