@@ -1,42 +1,56 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root {
+  /* Text */
+  --text-primary: #171719;
+  --text-secondary: #37383c;
+  --text-tertiary: #878a93;
+  --text-quaternary: #c2c4c8;
+  --text-brand: #0066ff;
+  --text-brand-invert: #ffffff;
+
+  /* Background */
+  --background-primary: #ffffff;
+
+  /* Surface */
+  --surface-primary: #70737c14;
+  --surface-secondary: #70737c29;
+
+  /* Button */
+  --button-primary: #0066ff;
+  --button-disable: #f4f4f5;
+
+  /* Line */
+  --line-primary: #70737c38;
+  --line-secondary: #70737c29;
+  --line-brand: #0066ff;
+
+  /* Icon */
+  --icon-primary: #171719;
+  --icon-secondary: #37383c;
+  --icon-tertiary: #878a93;
+  --icon-quaternary: #c2c4c8;
+  --icon-brand: #0066ff;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+html {
+  font-size: 62.5%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+body {
+  height: 100dvh;
+  font-family: "Pretendard-Regular", sans-serif;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
 }
