@@ -5,6 +5,9 @@ import WriteButton from "../components/WritePost/WriteButton";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// ✅ TODO
+// 1. 로그인 가드 추가/ 로그인 안된 상태에서 접근시 로그인 페이지로 이동
+
 export default function WritePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
