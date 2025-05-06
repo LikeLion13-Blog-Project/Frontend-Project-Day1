@@ -1,10 +1,21 @@
 import React from "react";
 import styled from "styled-components";
+import { formatKoreanDate } from "../../utils/dateFormat";
+import LikeBtn from "./LikeBtn";
 
-const PostContent = () => {
+//todo: 삭제버튼 + api 구현하기
+const PostContent = ({ data, handleLikeClick }) => {
   return (
     <PostContentWrapper>
-      <PostTitle>오늘 날씨는 18도래요 덥겠다</PostTitle>
+      <Header>
+        <Title>{data?.title}</Title>
+        <DetailInfo>
+          <Author>{data?.author}</Author>
+          <UploadedDate>{formatKoreanDate(data?.createdAt)}</UploadedDate>
+        </DetailInfo>
+      </Header>
+      <Content>{data?.content}</Content>
+      <LikeBtn data={data} handleLikeClick={handleLikeClick} />
     </PostContentWrapper>
   );
 };
@@ -18,14 +29,42 @@ const PostContentWrapper = styled.section`
   gap: 1.6rem;
 `;
 
-const PostHeader = styled.header`
+const Header = styled.header`
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
 `;
 
-const PostTitle = styled.h1`
+const Title = styled.h1`
   font-size: 2.4rem;
   font-weight: 700;
   color: var(--text-primary);
+`;
+
+const DetailInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+`;
+
+const Author = styled.span`
+  color: var(--text-secondary);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 150%;
+`;
+
+const UploadedDate = styled.span`
+  color: var(--text-tertiary);
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 138.5%;
+`;
+
+const Content = styled.p`
+  color: var(--text-primary);
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 150%;
+  padding: 6rem 0;
 `;
