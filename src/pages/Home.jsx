@@ -55,8 +55,10 @@ export default function Home() {
 
   return (
     <HomeContainer>
-      <HeaderSection filter={filter} onChangeFilter={onChangeFilter} />
-      <ListSection posts={posts} />
+      <div>
+        <HeaderSection filter={filter} onChangeFilter={onChangeFilter} />
+        <ListSection posts={posts} />
+      </div>
     </HomeContainer>
   );
 }
@@ -65,5 +67,10 @@ const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+
+  > div {
+    padding: 2rem;
+    width: 100%;
+    max-width: 74.4rem;
+  }
 `;
