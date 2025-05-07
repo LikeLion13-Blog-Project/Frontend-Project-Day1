@@ -7,7 +7,6 @@ export default function ListItem({
   title,
   author,
   createdAt,
-  totalLikes,
   totalComments,
 }) {
   const navigate = useNavigate();
@@ -25,9 +24,9 @@ export default function ListItem({
         <ListItemDate>{createdAt}</ListItemDate>
       </div>
       <div className="info">
-        <ion-icon name="heart-outline" />
+        {/* <ion-icon name="heart-outline" />
         <span>{totalLikes}</span>
-        <span>·</span>
+        <span>·</span> */}
         <ion-icon name="chatbubble-outline" />
         <span>{totalComments}</span>
       </div>
