@@ -19,11 +19,11 @@ export default function WritePost() {
   const navigate = useNavigate();
 
   const onChangeTitle = (e) => {
-    setTitle(e.target.value.trim());
+    setTitle(e.target.value);
   };
 
   const onChangeContent = (e) => {
-    setContent(e.target.value.trim());
+    setContent(e.target.value);
   };
 
   const onChangeAuthor = (e) => {
