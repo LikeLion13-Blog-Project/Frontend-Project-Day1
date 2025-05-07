@@ -1,4 +1,4 @@
-import CommentDeleteBtn from "../postDetail/CommentDeleteBtn";
+import CommentDeleteBtn from "./CommentDeleteBtn";
 import styled from "styled-components";
 import { formatKoreanDate } from "../../utils/dateFormat";
 // import CommentDeleteBtn from "./CommentDeleteBtn";
