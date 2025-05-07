@@ -12,7 +12,7 @@ export default function Header() {
     <HeaderContainer>
       <HeaderWrapper>
         <Logo onClick={() => navigate("/")} />
-        <LoginButton isLogin={isLogin} />
+        {/* <LoginButton isLogin={isLogin} /> */}
       </HeaderWrapper>
     </HeaderContainer>
   );

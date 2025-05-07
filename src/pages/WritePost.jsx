@@ -31,6 +31,7 @@ export default function WritePost() {
 
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
+    setTitle(e.target.value);
   };
 
   const onChangeContent = (e) => {
@@ -100,6 +101,7 @@ export default function WritePost() {
       />
       <TitleSection title={title} onChangeTitle={onChangeTitle} />
       <ContentSection content={content} onChangeContent={onChangeContent} />
+      <WriteButton disabled={disabled} />
       <WriteButton disabled={disabled} isEdit={editingPostData} />
     </WritePostContainer>
   );
@@ -109,6 +111,7 @@ const WritePostContainer = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
 
   gap: 2.4rem;
 

@@ -69,7 +69,7 @@ const UploadedDate = styled.span`
   line-height: 138.5%;
 `;
 
-const Content = styled.p`
+const Content = styled.pre`
   color: var(--text-primary);
   font-size: 1.6rem;
   font-weight: 400;

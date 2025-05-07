@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function HeaderSection({ filter, onChangeFilter }) {
-  const accessToken = localStorage.getItem("access_token");
-  const isLogin = accessToken !== null;
   const [showOrders, setShowOrders] = useState(false);
   const navigate = useNavigate();
 
@@ -50,9 +48,7 @@ export default function HeaderSection({ filter, onChangeFilter }) {
           )}
         </div>
       </div>
-      {isLogin && (
-        <WriteButton onClick={onClickWriteButton}>글쓰기</WriteButton>
-      )}
+      <WriteButton onClick={onClickWriteButton}>글쓰기</WriteButton>
     </HeaderSectionWrapepr>
   );
 }
