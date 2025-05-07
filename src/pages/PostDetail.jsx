@@ -15,14 +15,17 @@ const getPostData = async (postId) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          // Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       }
     );
+
     if (!response.ok) {
       throw new Error("something went wrong");
     }
     const data = await response.json();
+    console.log(data);
+
     return data.data;
   } catch (error) {
     console.error("Error fetching article data:", error);
@@ -35,6 +38,8 @@ export default function PostDetail() {
   const [postData, setPostData] = useState(mockData.data);
   const { postId } = useParams();
 
+  console.log(postId);
+
   useEffect(() => {
     const fetchData = async () => {
       const newPostData = await getPostData(postId);
@@ -42,7 +47,7 @@ export default function PostDetail() {
         setPostData(newPostData);
       }
     };
-    // fetchData();
+    fetchData();
   }, []);
 
   const handleLikeClick = async () => {
@@ -74,8 +79,8 @@ export default function PostDetail() {
   return (
     <PostDetailWrapper>
       <PostContent data={postData} handleLikeClick={handleLikeClick} />
-      <PostWriteComment />
-      <PostCommentList />
+      <PostWriteComment commentList={postData?.comments} />
+      <PostCommentList commentList={postData?.comments} />
     </PostDetailWrapper>
   );
 }

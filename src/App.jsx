@@ -16,4 +16,7 @@ function App() {
 
 export default App;
 
-const AppContainer = styled.div``;
+const AppContainer = styled.div`
+  width: 100%;
+  background-color: var(--background-primary);
+`;
