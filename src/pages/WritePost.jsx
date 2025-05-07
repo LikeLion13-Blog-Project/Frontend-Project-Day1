@@ -80,13 +80,13 @@ export default function WritePost() {
   }, [title, content, author, password]);
 
   return (
-    <WritePostContainer
-      onSubmit={onSubmit}
-      onChangeAuthor={onChangeAuthor}
-      password={password}
-      onChangePassword={onChangePassword}
-    >
-      <WriterSection author={author} />
+    <WritePostContainer onSubmit={onSubmit}>
+      <WriterSection
+        author={author}
+        onChangeAuthor={onChangeAuthor}
+        password={password}
+        onChangePassword={onChangePassword}
+      />
       <TitleSection title={title} onChangeTitle={onChangeTitle} />
       <ContentSection content={content} onChangeContent={onChangeContent} />
       <WriteButton disabled={disabled} />
