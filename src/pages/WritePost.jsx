@@ -51,6 +51,8 @@ export default function WritePost() {
         body: JSON.stringify({
           title,
           content,
+          author,
+          password,
         }),
       });
 
