@@ -20,6 +20,7 @@ export default function WritePost() {
 
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
+    setTitle(e.target.value);
   };
 
   const onChangeContent = (e) => {
@@ -98,6 +99,16 @@ const WritePostContainer = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+
   gap: 2.4rem;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.4rem;
+    width: 100%;
+    max-width: 74.4rem;
+    padding: 2rem;
+  }
 `;
