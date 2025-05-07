@@ -99,6 +99,7 @@ const WritePostContainer = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
 
   gap: 2.4rem;
 
