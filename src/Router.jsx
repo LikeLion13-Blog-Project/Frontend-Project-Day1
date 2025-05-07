@@ -3,10 +3,12 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import PostDetail from "./pages/PostDetail";
 import WritePost from "./pages/WritePost";
+import HeaderLayout from "./components/common/Layout";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <HeaderLayout />,
     children: [
       {
         path: "/",
