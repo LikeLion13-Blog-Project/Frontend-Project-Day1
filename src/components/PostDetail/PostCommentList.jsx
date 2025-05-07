@@ -1,5 +1,4 @@
-import CommentDeleteBtn from "../postDetail/CommentDeleteBtn";
-import mockData from "./mockData";
+// import CommentDeleteBtn from "../postDetail/CommentDeleteBtn";
 
 // 댓글 목록 섹션 컴포넌트
 const PostCommentList = ({ commentList }) => {
@@ -10,7 +9,7 @@ const PostCommentList = ({ commentList }) => {
           <h1 style={{ fontSize: "16px" }}>{el.author}</h1>
           <div>{el.content}</div>
           <div>{el.createdAt}</div>
-          <CommentDeleteBtn commentId={el.id} />
+          {/* <CommentDeleteBtn commentId={el.id} /> */}
         </div>
       ))}
     </div>
