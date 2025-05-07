@@ -10,12 +10,12 @@ export default function ListItem({
   totalLikes,
   totalComments,
 }) {
-  const navigate = useNavigate(); // Import useNavigate from react-router-dom
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    // Navigate to the post detail page with the postId
     navigate(`/post/${postId}`);
   };
+
   return (
     <ListItemWrapper onClick={handleClick}>
       <ListItemTitle>{title}</ListItemTitle>
@@ -40,6 +40,11 @@ const ListItemWrapper = styled.li`
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--background-secondary, #f8f9fa);
+  }
 
   .info {
     display: flex;
