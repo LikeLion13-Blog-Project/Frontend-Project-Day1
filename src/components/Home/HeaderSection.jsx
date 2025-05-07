@@ -31,15 +31,6 @@ export default function HeaderSection({ filter, onChangeFilter }) {
             <div
               className="order-item"
               onClick={() => {
-                onChangeFilter("인기순");
-                setShowOrders(false);
-              }}
-            >
-              인기순
-            </div>
-            <div
-              className="order-item"
-              onClick={() => {
                 onChangeFilter("댓글순");
                 setShowOrders(false);
               }}

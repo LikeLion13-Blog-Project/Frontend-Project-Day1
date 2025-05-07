@@ -2,7 +2,6 @@ import styled from "styled-components";
 import HeaderSection from "../components/Home/HeaderSection";
 import ListSection from "../components/Home/ListSection";
 import { useEffect, useState } from "react";
-import { formatKoreanDate } from "../utils/dateFormat";
 
 // ✅ TODO
 // 1. return 내부 에 있는 mockPosts를 API로 받아온 posts로 변경하기
@@ -29,12 +28,7 @@ export default function Home() {
         }
         const data = await response.json();
 
-        const formattedData = data.data.map((post) => ({
-          ...post,
-          createdAt: formatKoreanDate(post.createdAt),
-        }));
-        setPosts(formattedData);
-        console.log(formattedData);
+        setPosts(data.data.reverse());
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
