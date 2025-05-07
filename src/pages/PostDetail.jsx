@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 // 가독성 + 함수 재활용을 위해 컴포넌트 밖으로 빼줌
-const getPostData = async (postId) => {
+export const getPostData = async (postId) => {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/articles/${postId}`,
@@ -24,7 +24,7 @@ const getPostData = async (postId) => {
       throw new Error("something went wrong");
     }
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     return data.data;
   } catch (error) {
@@ -38,8 +38,6 @@ export default function PostDetail() {
   const [postData, setPostData] = useState(mockData.data);
   const { postId } = useParams();
 
-  console.log(postId);
-
   useEffect(() => {
     const fetchData = async () => {
       const newPostData = await getPostData(postId);
@@ -50,35 +48,13 @@ export default function PostDetail() {
     fetchData();
   }, []);
 
-  const handleLikeClick = async () => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/likes/${postData?.id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error("something went wrong");
-      }
-      const newPostData = await getPostData();
-      if (newPostData) {
-        setPostData(newPostData);
-        alert("좋아요가 생성되었습니다.");
-      }
-    } catch (error) {
-      console.error("Error fetching like API:", error);
-      alert("좋아요 생성 중 오류가 발생했습니다.");
-    }
+  const handlePostData = (data) => {
+    setPostData(data);
   };
 
   return (
     <PostDetailWrapper>
-      <PostContent data={postData} handleLikeClick={handleLikeClick} />
+      <PostContent data={postData} handlePostData={handlePostData} />
       <PostWriteComment commentList={postData?.comments} />
       <PostCommentList commentList={postData?.comments} />
     </PostDetailWrapper>

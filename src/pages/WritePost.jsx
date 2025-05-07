@@ -3,7 +3,7 @@ import TitleSection from "../components/WritePost/TitleSection";
 import ContentSection from "../components/WritePost/ContentSection";
 import WriteButton from "../components/WritePost/WriteButton";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import WriterSection from "../components/WritePost/WriterSection";
 
 // ✅ TODO
@@ -17,6 +17,17 @@ export default function WritePost() {
   const [disabled, setDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const editingPostData = location.state?.post;
+
+  // 수정하기 버튼으로 리디렉션 시 컴포넌트 마운트 시 전달된 state를 저장하는 기능 수행행
+  useEffect(() => {
+    if (editingPostData) {
+      setAuthor(editingPostData.author);
+      setTitle(editingPostData.title);
+      setContent(editingPostData.content);
+    }
+  }, []);
 
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -89,7 +100,7 @@ export default function WritePost() {
       />
       <TitleSection title={title} onChangeTitle={onChangeTitle} />
       <ContentSection content={content} onChangeContent={onChangeContent} />
-      <WriteButton disabled={disabled} />
+      <WriteButton disabled={disabled} isEdit={editingPostData} />
     </WritePostContainer>
   );
 }

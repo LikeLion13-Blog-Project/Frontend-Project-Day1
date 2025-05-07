@@ -1,7 +1,35 @@
 import React from "react";
 import styled from "styled-components";
+import { getPostData } from "../../pages/PostDetail";
 
-const LikeBtn = ({ data, handleLikeClick }) => {
+const LikeBtn = ({ data, handlePostData }) => {
+  // 좋아요 API 호출 함수를 부모 컴포넌트에서 가져와서 캡슐화
+  const handleLikeClick = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/likes/${data?.id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("something went wrong");
+      }
+      const newPostData = await getPostData();
+      if (newPostData) {
+        handlePostData(newPostData);
+        alert("좋아요가 생성되었습니다.");
+      }
+    } catch (error) {
+      console.error("Error fetching like API:", error);
+      alert("좋아요 생성 중 오류가 발생했습니다.");
+    }
+  };
+
   return (
     <LikeButton onClick={handleLikeClick}>
       <StyledIcon name="heart-outline" />
@@ -35,4 +63,5 @@ const LikeButton = styled.button`
 
 const StyledIcon = styled("ion-icon")`
   font-size: 1.6rem;
+  cursor: pointer;
 `;
