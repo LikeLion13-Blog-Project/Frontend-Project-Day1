@@ -4,15 +4,15 @@ import styled from "styled-components";
 
 export default function HeaderLayout() {
   return (
-    <Wrapper>
+    <LayoutWrapper>
       <Header />
       {/* {children} */}
       {/* createBrowserRouter를 사용할 땐 children 대신 Outlet 컴포넌트를 사용합니다 */}
       <Outlet />
-    </Wrapper>
+    </LayoutWrapper>
   );
 }
 
-const Wrapper = styled.div`
+const LayoutWrapper = styled.div`
   width: 100%;
 `;
