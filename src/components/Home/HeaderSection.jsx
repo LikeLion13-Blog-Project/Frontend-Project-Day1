@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import CaretDown from "../../../assets/icons/Home/caret-down.svg?react";
 
 export default function HeaderSection({ filter, onChangeFilter }) {
   const [showOrders, setShowOrders] = useState(false);
@@ -13,7 +12,11 @@ export default function HeaderSection({ filter, onChangeFilter }) {
     <HeaderSectionWrapepr>
       <div className="title">게시판</div>
       <div className="order" onClick={onClickOrder}>
-        <span>{filter}</span> <StyledCaretDown $showOrders={showOrders} />
+        <span>{filter}</span>
+        <CaretDownWrapper $showOrders={showOrders}>
+          <ion-icon name="caret-down-outline" />
+        </CaretDownWrapper>
+
         {showOrders && (
           <OrderList className="orders">
             <div
@@ -94,7 +97,10 @@ const OrderList = styled.div`
   background-color: white;
 `;
 
-const StyledCaretDown = styled(CaretDown)`
+const CaretDownWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transform: rotate(${({ $showOrders }) => ($showOrders ? "180deg" : "0deg")});
   transition: transform 0.2s ease;
 `;

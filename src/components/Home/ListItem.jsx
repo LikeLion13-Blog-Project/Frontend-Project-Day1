@@ -1,17 +1,23 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Likes from "../../../assets/icons/Home/heart.svg?react";
-import ChatBubble from "../../../assets/icons/Home/chatbubble.svg?react";
 
 export default function ListItem({
+  postId,
   title,
   author,
   createdAt,
   totalLikes,
   totalComments,
 }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/post/${postId}`);
+  };
+
   return (
-    <ListItemWrapper>
+    <ListItemWrapper onClick={handleClick}>
       <ListItemTitle>{title}</ListItemTitle>
       <div className="info">
         <ListItemAuthor>{author}</ListItemAuthor>
@@ -19,10 +25,10 @@ export default function ListItem({
         <ListItemDate>{createdAt}</ListItemDate>
       </div>
       <div className="info">
-        <Likes />
+        <ion-icon name="heart-outline" />
         <span>{totalLikes}</span>
         <span>·</span>
-        <ChatBubble />
+        <ion-icon name="chatbubble-outline" />
         <span>{totalComments}</span>
       </div>
     </ListItemWrapper>
@@ -34,6 +40,11 @@ const ListItemWrapper = styled.li`
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--background-secondary, #f8f9fa);
+  }
 
   .info {
     display: flex;
@@ -66,11 +77,3 @@ const ListItemTitle = styled.div`
 `;
 const ListItemAuthor = styled.div``;
 const ListItemDate = styled.div``;
-const ListItemLike = styled.div`
-  display: flex;
-  align-items: center;
-`;
-const ListItemComment = styled.div`
-  display: flex;
-  align-items: center;
-`;
