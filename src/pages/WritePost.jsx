@@ -4,11 +4,14 @@ import ContentSection from "../components/WritePost/ContentSection";
 import WriteButton from "../components/WritePost/WriteButton";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import WriterSection from "../components/WritePost/WriterSection";
 
 // ✅ TODO
-// 1. 로그인 가드 추가/ 로그인 안된 상태에서 접근시 로그인 페이지로 이동
+// 1. author, password 추가
 
 export default function WritePost() {
+  const [author, setAuthor] = useState("");
+  const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [disabled, setDisabled] = useState(true);
@@ -21,6 +24,14 @@ export default function WritePost() {
 
   const onChangeContent = (e) => {
     setContent(e.target.value.trim());
+  };
+
+  const onChangeAuthor = (e) => {
+    setAuthor(e.target.value.trim());
+  };
+
+  const onChangePassword = (e) => {
+    setPassword(e.target.value.trim());
   };
 
   const onSubmit = async (e) => {
@@ -59,15 +70,21 @@ export default function WritePost() {
   };
 
   useEffect(() => {
-    if (title && content) {
+    if (title && content && author && password) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [title, content]);
+  }, [title, content, author, password]);
 
   return (
-    <WritePostContainer onSubmit={onSubmit}>
+    <WritePostContainer
+      onSubmit={onSubmit}
+      onChangeAuthor={onChangeAuthor}
+      password={password}
+      onChangePassword={onChangePassword}
+    >
+      <WriterSection author={author} />
       <TitleSection title={title} onChangeTitle={onChangeTitle} />
       <ContentSection content={content} onChangeContent={onChangeContent} />
       <WriteButton disabled={disabled} />
