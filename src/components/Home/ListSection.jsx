@@ -3,7 +3,6 @@ import styled from "styled-components";
 import ListItem from "./ListItem";
 
 export default function ListSection({ posts }) {
-  console.log(posts);
   return (
     <ListSectionWrapper>
       <List>
