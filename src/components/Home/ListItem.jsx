@@ -1,15 +1,23 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function ListItem({
+  postId,
   title,
   author,
   createdAt,
   totalLikes,
   totalComments,
 }) {
+  const navigate = useNavigate(); // Import useNavigate from react-router-dom
+
+  const handleClick = () => {
+    // Navigate to the post detail page with the postId
+    navigate(`/post/${postId}`);
+  };
   return (
-    <ListItemWrapper>
+    <ListItemWrapper onClick={handleClick}>
       <ListItemTitle>{title}</ListItemTitle>
       <div className="info">
         <ListItemAuthor>{author}</ListItemAuthor>
@@ -64,11 +72,3 @@ const ListItemTitle = styled.div`
 `;
 const ListItemAuthor = styled.div``;
 const ListItemDate = styled.div``;
-const ListItemLike = styled.div`
-  display: flex;
-  align-items: center;
-`;
-const ListItemComment = styled.div`
-  display: flex;
-  align-items: center;
-`;

@@ -8,7 +8,7 @@ export default function ListSection({ posts }) {
     <ListSectionWrapper>
       <List>
         {posts.map((post) => (
-          <ListItem key={post.id} {...post} />
+          <ListItem key={post.id} {...post} postId={post.id} />
         ))}
       </List>
     </ListSectionWrapper>
