@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Likes from "../../../assets/icons/Home/heart.svg?react";
-import ChatBubble from "../../../assets/icons/Home/chatbubble.svg?react";
 
 export default function ListItem({
   title,
@@ -19,10 +17,10 @@ export default function ListItem({
         <ListItemDate>{createdAt}</ListItemDate>
       </div>
       <div className="info">
-        <Likes />
+        <ion-icon name="heart-outline" />
         <span>{totalLikes}</span>
         <span>·</span>
-        <ChatBubble />
+        <ion-icon name="chatbubble-outline" />
         <span>{totalComments}</span>
       </div>
     </ListItemWrapper>
