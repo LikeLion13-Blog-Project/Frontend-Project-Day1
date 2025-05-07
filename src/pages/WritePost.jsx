@@ -53,31 +53,38 @@ export default function WritePost() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/articles`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          // ✅ 일다 여기 토큰 네임 임시
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-        body: JSON.stringify({
-          title,
-          content,
-          author,
-          password,
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/articles${
+          editingPostData ? `/${editingPostData.id}` : ""
+        }`,
+        {
+          method: editingPostData ? "PUT" : "POST",
+          headers: {
+            "Content-Type": "application/json",
+            // ✅ 일다 여기 토큰 네임 임시
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+          body: JSON.stringify({
+            title,
+            content,
+            author,
+            password,
+          }),
+        }
+      );
+
+      const parsedData = await response.json();
 
       if (!response.ok) {
-        throw new Error("something went wrong");
+        throw new Error(parsedData.message || "something went wrong");
       }
 
-      await response.json();
       //console.log("Post created:", data);
 
       navigate("/");
     } catch (error) {
       console.error("Error creating post:", error);
+      alert(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -101,7 +108,6 @@ export default function WritePost() {
       />
       <TitleSection title={title} onChangeTitle={onChangeTitle} />
       <ContentSection content={content} onChangeContent={onChangeContent} />
-      <WriteButton disabled={disabled} />
       <WriteButton disabled={disabled} isEdit={editingPostData} />
     </WritePostContainer>
   );

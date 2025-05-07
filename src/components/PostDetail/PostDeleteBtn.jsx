@@ -9,6 +9,7 @@ const PostDeleteBtn = ({ data }) => {
 
   const deletePost = async () => {
     let password = prompt("비밀번호를 입력하세요.");
+    if (password === null) return;
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/articles/${data?.id}`,
@@ -29,7 +30,7 @@ const PostDeleteBtn = ({ data }) => {
       if (!response.ok) {
         throw new Error(parsedData.message || "something went wrong");
       }
-      alert(parsedData.message);
+      //   alert(parsedData.message);
       setRenderModal(false);
       navigate("/");
     } catch (error) {
@@ -48,15 +49,15 @@ const PostDeleteBtn = ({ data }) => {
   return (
     <>
       <StyledModal>
-        {renderMoadal && (
+        {/* {renderMoadal && (
           <DeleteModal
             isPost={true}
             handleDeleteBtn={deletePost}
             handleCancelBtn={handleCancelBtn}
           />
-        )}
+        )} */}
       </StyledModal>
-      <StyledIcon name="trash-outline" onClick={handleDelete} />
+      <StyledIcon name="trash-outline" onClick={deletePost} />
     </>
   );
 };
