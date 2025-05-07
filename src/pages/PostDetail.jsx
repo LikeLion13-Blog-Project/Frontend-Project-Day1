@@ -2,7 +2,6 @@ import styled from "styled-components";
 import PostContent from "../components/PostDetail/PostContent";
 import PostWriteComment from "../components/PostDetail/PostWriteComment";
 import PostCommentList from "../components/PostDetail/PostCommentList";
-import mockData from "../components/PostDetail/mockData";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -35,7 +34,8 @@ const getPostData = async (postId) => {
 
 export default function PostDetail() {
   // API 연동 후 빈 배열로 바꾸자자
-  const [postData, setPostData] = useState(mockData.data);
+  const [postData, setPostData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const { postId } = useParams();
 
   useEffect(() => {
@@ -44,6 +44,7 @@ export default function PostDetail() {
       if (newPostData) {
         setPostData(newPostData);
       }
+      setIsLoading(false);
     };
     fetchData();
   }, []);
@@ -81,6 +82,10 @@ export default function PostDetail() {
       setPostData(updated);
     }
   };
+
+  if (isLoading) {
+    return <div></div>;
+  }
 
   return (
     <PostDetailWrapper>
