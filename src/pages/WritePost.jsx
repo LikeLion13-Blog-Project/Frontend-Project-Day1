@@ -16,11 +16,11 @@ export default function WritePost() {
   const navigate = useNavigate();
 
   const onChangeTitle = (e) => {
-    setTitle(e.target.value.trim());
+    setTitle(e.target.value);
   };
 
   const onChangeContent = (e) => {
-    setContent(e.target.value.trim());
+    setContent(e.target.value);
   };
 
   const onSubmit = async (e) => {
@@ -68,9 +68,11 @@ export default function WritePost() {
 
   return (
     <WritePostContainer onSubmit={onSubmit}>
-      <TitleSection title={title} onChangeTitle={onChangeTitle} />
-      <ContentSection content={content} onChangeContent={onChangeContent} />
-      <WriteButton disabled={disabled} />
+      <div>
+        <TitleSection title={title} onChangeTitle={onChangeTitle} />
+        <ContentSection content={content} onChangeContent={onChangeContent} />
+        <WriteButton disabled={disabled} />
+      </div>
     </WritePostContainer>
   );
 }
@@ -79,6 +81,16 @@ const WritePostContainer = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+
   gap: 2.4rem;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.4rem;
+    width: 100%;
+    max-width: 74.4rem;
+    padding: 2rem;
+  }
 `;
