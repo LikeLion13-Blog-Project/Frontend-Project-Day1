@@ -2,8 +2,6 @@ import styled from "styled-components";
 import HeaderSection from "../components/Home/HeaderSection";
 import ListSection from "../components/Home/ListSection";
 import { useEffect, useState } from "react";
-import { posts as mockPosts } from "../components/Home/data";
-import { formatKoreanDate } from "../utils/dateFormat";
 
 // ✅ TODO
 // 1. return 내부 에 있는 mockPosts를 API로 받아온 posts로 변경하기
@@ -23,18 +21,14 @@ export default function Home() {
     async function fetchPosts() {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/blog/articles`
+          `${import.meta.env.VITE_API_URL}/articles`
         );
         if (!response.ok) {
           throw new Error("something went wrong");
         }
         const data = await response.json();
-        const formattedData = data.map((post) => ({
-          ...post,
-          createdAt: formatKoreanDate(post.createdAt),
-        }));
-        setPosts(formattedData);
-        console.log(formattedData);
+
+        setPosts(data.data.reverse());
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
@@ -46,7 +40,7 @@ export default function Home() {
   // 필터링된 게시물 정렬
   // 최신순, 인기순, 댓글순에 따라 정렬된 게시물 목록을 posts에 저장
   useEffect(() => {
-    const sortedPosts = [...mockPosts].sort((a, b) => {
+    const sortedPosts = [...posts].sort((a, b) => {
       if (filter === "최신순") {
         return new Date(b.createdAt) - new Date(a.createdAt);
       } else if (filter === "인기순") {
