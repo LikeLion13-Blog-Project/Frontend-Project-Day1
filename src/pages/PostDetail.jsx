@@ -38,8 +38,6 @@ export default function PostDetail() {
   const [postData, setPostData] = useState(mockData.data);
   const { postId } = useParams();
 
-  console.log(postId);
-
   useEffect(() => {
     const fetchData = async () => {
       const newPostData = await getPostData(postId);
@@ -76,11 +74,25 @@ export default function PostDetail() {
     }
   };
 
+  // 코멘트 업데이트 위해 콜백 함수를 정의했습니다
+  const refreshPostData = async () => {
+    const updated = await getPostData(postId);
+    if (updated) {
+      setPostData(updated);
+    }
+  };
+
   return (
     <PostDetailWrapper>
       <PostContent data={postData} handleLikeClick={handleLikeClick} />
-      <PostWriteComment commentList={postData?.comments} />
-      <PostCommentList commentList={postData?.comments} />
+      <PostWriteComment
+        onCommentPosted={refreshPostData}
+        commentList={postData?.comments}
+      />
+      <PostCommentList
+        onCommentPosted={refreshPostData}
+        commentList={postData?.comments}
+      />
     </PostDetailWrapper>
   );
 }
