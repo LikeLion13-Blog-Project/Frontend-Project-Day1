@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 
-const CommentDeleteBtn = ({ commentId }) => {
+const CommentDeleteBtn = ({ commentId, onCommentPosted }) => {
   const handleDelete = async () => {
     const password = prompt("비밀번호를 입력하세요");
     if (!password) {
@@ -20,20 +21,43 @@ const CommentDeleteBtn = ({ commentId }) => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("댓글 삭제 실패");
-      }
+      const result = await response.json();
 
-      alert("댓글이 삭제되었습니다.");
+      if (!response.ok) {
+        throw new Error(result.message);
+      }
     } catch (error) {
       console.error("Error deleting comment:", error);
-      alert("댓글 삭제 중 오류가 발생했습니다.");
+      alert(error.message);
+    } finally {
+      onCommentPosted();
     }
   };
 
-  return <Button onClick={() => handleDelete}>삭제</Button>;
+  return (
+    <Button onClick={() => handleDelete()}>
+      <StyledIcon name="trash-outline" />
+    </Button>
+  );
 };
 
-const Button = styled.button``;
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 0.5rem;
 
+  &:hover {
+    background-color: var(--surface-primary);
+  }
+`;
+
+const StyledIcon = styled("ion-icon")`
+  font-size: 2rem;
+  color: var(--icon-tertiary);
+`;
 export default CommentDeleteBtn;
