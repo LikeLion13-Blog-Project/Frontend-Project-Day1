@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 // 4. 글쓰기 버튼 로그인 검증 기능 넣기
 
 export default function Home() {
+
   const [filter, setFilter] = useState("최신순");
   const [posts, setPosts] = useState([]);
 
