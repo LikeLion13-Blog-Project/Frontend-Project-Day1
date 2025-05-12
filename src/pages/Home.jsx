@@ -4,10 +4,10 @@ import ListSection from "../components/Home/ListSection";
 import { useEffect, useState } from "react";
 
 // ✅ TODO
-// 1. return 내부 에 있는 mockPosts를 API로 받아온 posts로 변경하기 @@@
-// 2. API에서 받아온 posts의 createdAt을 formatKoreanDate로 변환하기 @@@
-// 3. 게시물 클릭하면 해당 게시물로 directing하기 (id 포함해서) @@@
-// 4. 글쓰기 버튼 로그인 검증 기능 넣기
+// 1. return 내부 에 있는 mockPosts를 API로 받아온 posts로 변경하기
+// 2. API에서 받아온 posts의 createdAt을 formatKoreanDate로 변환하기
+// 3. 게시물 클릭하면 해당 게시물로 directing하기 (id 포함해서)
+// 4. 글쓰기 버튼 로그인 확인 로직 보강 필요
 
 export default function Home() {
 
@@ -66,16 +66,18 @@ export default function Home() {
 }
 
 const HomeContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   > div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    padding: 2rem;
     width: 100%;
     max-width: 74.4rem;
+    display: flex;
+    gap: 0.8rem;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
   }
 `;

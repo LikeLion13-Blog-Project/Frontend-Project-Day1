@@ -2,12 +2,11 @@ import styled from "styled-components";
 import PostContent from "../components/PostDetail/PostContent";
 import PostWriteComment from "../components/PostDetail/PostWriteComment";
 import PostCommentList from "../components/PostDetail/PostCommentList";
-import mockData from "../components/PostDetail/mockData";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 // 가독성 + 함수 재활용을 위해 컴포넌트 밖으로 빼줌
-const getPostData = async (postId) => {
+export const getPostData = async (postId) => {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/articles/${postId}`,
@@ -24,7 +23,7 @@ const getPostData = async (postId) => {
       throw new Error("something went wrong");
     }
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     return data.data;
   } catch (error) {
@@ -35,7 +34,8 @@ const getPostData = async (postId) => {
 
 export default function PostDetail() {
   // API 연동 후 빈 배열로 바꾸자자
-  const [postData, setPostData] = useState(mockData.data);
+  const [postData, setPostData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const { postId } = useParams();
 
   useEffect(() => {
@@ -44,6 +44,7 @@ export default function PostDetail() {
       if (newPostData) {
         setPostData(newPostData);
       }
+      setIsLoading(false);
     };
     fetchData();
   }, []);
@@ -81,6 +82,10 @@ export default function PostDetail() {
       setPostData(updated);
     }
   };
+
+  if (isLoading) {
+    return <div></div>;
+  }
 
   return (
     <PostDetailWrapper>

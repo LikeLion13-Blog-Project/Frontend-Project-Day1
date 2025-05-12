@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function HeaderSection({ filter, onChangeFilter }) {
-  const accessToken = localStorage.getItem("access_token");
-  const isLogin = accessToken !== null;
   const [showOrders, setShowOrders] = useState(false);
   const navigate = useNavigate();
 
@@ -13,7 +11,6 @@ export default function HeaderSection({ filter, onChangeFilter }) {
   };
 
   const onClickWriteButton = () => {
-    // 로그인 검증 기능 추가하기
     navigate("/write");
   };
 
@@ -26,6 +23,7 @@ export default function HeaderSection({ filter, onChangeFilter }) {
           <CaretDownWrapper $showOrders={showOrders}>
             <ion-icon name="caret-down-outline" />
           </CaretDownWrapper>
+
           {showOrders && (
             <OrderList className="orders">
               <div
@@ -40,15 +38,6 @@ export default function HeaderSection({ filter, onChangeFilter }) {
               <div
                 className="order-item"
                 onClick={() => {
-                  onChangeFilter("인기순");
-                  setShowOrders(false);
-                }}
-              >
-                인기순
-              </div>
-              <div
-                className="order-item"
-                onClick={() => {
                   onChangeFilter("댓글순");
                   setShowOrders(false);
                 }}
@@ -59,9 +48,7 @@ export default function HeaderSection({ filter, onChangeFilter }) {
           )}
         </div>
       </div>
-      {isLogin && (
-        <WriteButton onClick={onClickWriteButton}>글쓰기</WriteButton>
-      )}
+      <WriteButton onClick={onClickWriteButton}>글쓰기</WriteButton>
     </HeaderSectionWrapepr>
   );
 }
@@ -123,11 +110,6 @@ const CaretDownWrapper = styled.div`
 `;
 
 const WriteButton = styled.button`
-  display: flex;
-  padding: 0.7rem 1.4rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   color: var(--text-brand-invert, #fff);
 
   /* label/medium-bold */
@@ -137,6 +119,12 @@ const WriteButton = styled.button`
   font-weight: 700;
   line-height: 142.9%; /* 2.0006rem */
   letter-spacing: 0.0203rem;
+
+  display: flex;
+  padding: 0.7rem 1.4rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   border: none;
   cursor: pointer;

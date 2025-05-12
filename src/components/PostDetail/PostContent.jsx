@@ -2,9 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { formatKoreanDate } from "../../utils/dateFormat";
 import LikeBtn from "./LikeBtn";
+import PostEditBtn from "./PostEditBtn";
+import PostDeleteBtn from "./PostDeleteBtn";
 
 //todo: 삭제버튼 + api 구현하기
-const PostContent = ({ data, handleLikeClick }) => {
+const PostContent = ({ data, handlePostData }) => {
   return (
     <PostContentWrapper>
       <Header>
@@ -15,7 +17,14 @@ const PostContent = ({ data, handleLikeClick }) => {
         </DetailInfo>
       </Header>
       <Content>{data?.content}</Content>
-      <LikeBtn data={data} handleLikeClick={handleLikeClick} />
+      <BtnSection>
+        {/* <LikeBtn data={data} handlePostData={handlePostData} /> */}
+        <div></div>
+        <BtnWrapper>
+          <PostEditBtn data={data} />
+          <PostDeleteBtn data={data} />
+        </BtnWrapper>
+      </BtnSection>
     </PostContentWrapper>
   );
 };
@@ -61,10 +70,21 @@ const UploadedDate = styled.span`
   line-height: 138.5%;
 `;
 
-const Content = styled.p`
+const Content = styled.pre`
   color: var(--text-primary);
   font-size: 1.6rem;
   font-weight: 400;
   line-height: 150%;
   padding: 6rem 0;
+`;
+
+const BtnSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const BtnWrapper = styled.div`
+  display: flex;
+  gap: 1.2rem;
 `;
