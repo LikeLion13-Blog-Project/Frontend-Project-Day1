@@ -13,6 +13,7 @@ const WriteButtonWrapper = styled.button`
   width: 100%;
   max-width: 74.4rem;
   padding: 1.2rem 1.6rem;
+  transition: background-color 0.3s ease-in-out;
 
   border-radius: 1rem;
   border: none;
