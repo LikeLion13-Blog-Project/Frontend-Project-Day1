@@ -1,12 +1,18 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!id || !password) {
+      alert("아이디와 비밀번호를 모두 입력하세요.");
+      return;
+    }
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/auth/login`,
@@ -16,13 +22,18 @@ export default function Login() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            id,
+            userId: id,
             password,
           }),
         }
       );
       if (!response.ok) {
         throw new Error("something went wrong");
+        alert("아이디 또는 비밀번호가 잘못되었습니다.");
+      } else {
+        const result = await response.json();
+        localStorage.setItem("accessToken", result.data.token);
+        navigate("/");
       }
     } catch (error) {
       console.error("Error creating post:", error);
