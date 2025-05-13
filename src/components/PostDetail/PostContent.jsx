@@ -18,8 +18,7 @@ const PostContent = ({ data, handlePostData }) => {
       </Header>
       <Content>{data?.content}</Content>
       <BtnSection>
-        {/* <LikeBtn data={data} handlePostData={handlePostData} /> */}
-        <div></div>
+        <LikeBtn data={data} handlePostData={handlePostData} />
         <BtnWrapper>
           <PostEditBtn data={data} />
           <PostDeleteBtn data={data} />

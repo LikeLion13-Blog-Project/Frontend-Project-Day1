@@ -1,8 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-const DeleteModal = ({ isPost, handleDeleteBtn, handleCancelBtn }) => {
+/**
+ * @description
+ * DeleteModal 컴포넌트는 게시글 또는 댓글 삭제를 위한 모달을 렌더링합니다.
+ *
+ * @param {boolean} isPost - 게시글인지 댓글인지 여부를 나타냅니다.
+ * @param {function} handleDeleteBtn - 삭제 버튼 클릭 시 호출되는 함수입니다.
+ * @param {function} handleCancelBtn - 취소 버튼 클릭 시 호출되는 함수입니다.
+ */
 
+const DeleteModal = ({ isPost, handleDeleteBtn, handleCancelBtn }) => {
   return (
     <ModalContainer>
       <Information>

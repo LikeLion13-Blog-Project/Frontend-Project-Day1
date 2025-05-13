@@ -7,6 +7,8 @@ import { useParams } from "react-router-dom";
 
 // 가독성 + 함수 재활용을 위해 컴포넌트 밖으로 빼줌
 export const getPostData = async (postId) => {
+  console.log(localStorage.getItem("accessToken"));
+
   try {
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/articles/${postId}`,
@@ -14,7 +16,7 @@ export const getPostData = async (postId) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          // Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       }
     );
@@ -23,7 +25,6 @@ export const getPostData = async (postId) => {
       throw new Error("something went wrong");
     }
     const data = await response.json();
-    // console.log(data);
 
     return data.data;
   } catch (error) {
@@ -33,7 +34,6 @@ export const getPostData = async (postId) => {
 };
 
 export default function PostDetail() {
-  // API 연동 후 빈 배열로 바꾸자자
   const [postData, setPostData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { postId } = useParams();
@@ -49,30 +49,8 @@ export default function PostDetail() {
     fetchData();
   }, []);
 
-  const handleLikeClick = async () => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/likes/${postData?.id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error("something went wrong");
-      }
-      const newPostData = await getPostData();
-      if (newPostData) {
-        setPostData(newPostData);
-        alert("좋아요가 생성되었습니다.");
-      }
-    } catch (error) {
-      console.error("Error fetching like API:", error);
-      alert("좋아요 생성 중 오류가 발생했습니다.");
-    }
+  const handlePostData = (newPostData) => {
+    setPostData(newPostData);
   };
 
   // 코멘트 업데이트 위해 콜백 함수를 정의했습니다
@@ -89,7 +67,7 @@ export default function PostDetail() {
 
   return (
     <PostDetailWrapper>
-      <PostContent data={postData} handleLikeClick={handleLikeClick} />
+      <PostContent data={postData} handlePostData={handlePostData} />
       <PostWriteComment
         onCommentPosted={refreshPostData}
         commentList={postData?.comments}

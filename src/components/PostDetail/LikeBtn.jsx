@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { getPostData } from "../../pages/PostDetail";
 
 const LikeBtn = ({ data, handlePostData }) => {
+  const [isLiked, setIsLiked] = useState(false);
   // 좋아요 API 호출 함수를 부모 컴포넌트에서 가져와서 캡슐화
   const handleLikeClick = async () => {
     try {
@@ -12,17 +13,22 @@ const LikeBtn = ({ data, handlePostData }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         }
       );
+      const parsedData = await response.json();
       if (!response.ok) {
         throw new Error("something went wrong");
       }
-      const newPostData = await getPostData();
+      const newPostData = await getPostData(data?.id);
       if (newPostData) {
         handlePostData(newPostData);
-        alert("좋아요가 생성되었습니다.");
+      }
+      if (parsedData.message === "좋아요 생성 성공") {
+        setIsLiked(true);
+      } else {
+        setIsLiked(false);
       }
     } catch (error) {
       console.error("Error fetching like API:", error);
@@ -31,7 +37,7 @@ const LikeBtn = ({ data, handlePostData }) => {
   };
 
   return (
-    <LikeButton onClick={handleLikeClick}>
+    <LikeButton onClick={handleLikeClick} isLiked={isLiked}>
       <StyledIcon name="heart-outline" />
       <span>좋아요</span>
       <span> {data?.totalLike}</span>
@@ -48,13 +54,16 @@ const LikeButton = styled.button`
   align-items: center;
   gap: 0.4rem;
   border-radius: 8px;
-  border: 1px solid var(--line-brand);
+  border: 1px solid
+    ${(props) => (props.isLiked ? "var(--line-brand)" : "var(--line-primary)")};
   background: none;
-  color: var(--icon-brand);
+  color: ${(props) =>
+    props.isLiked ? "var(--icon-brand)" : "var(--icon-tertiary)"};
   width: fit-content;
   cursor: pointer;
   & > span {
-    color: var(--text-brand);
+    color: ${(props) =>
+      props.isLiked ? "var(--text-brand)" : "var(--text-tertiary)"};
     font-size: 1.4rem;
     font-weight: 700;
     line-height: 150%;

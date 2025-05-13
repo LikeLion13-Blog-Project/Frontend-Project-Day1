@@ -7,14 +7,14 @@ const LoginGuard = (_WrappedComponent) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-      const token = localStorage.getItem("access_token");
+      const token = localStorage.getItem("accessToken");
       if (!token) {
         alert("로그인이 필요합니다.");
         navigate("/login", { replace: true });
       }
     }, []);
 
-    const token = localStorage.getItem("access_token");
+    const token = localStorage.getItem("accessToken");
     if (!token) {
       return null;
     }

@@ -62,7 +62,7 @@ export default function WritePost() {
           headers: {
             "Content-Type": "application/json",
             // ✅ 일다 여기 토큰 네임 임시
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
           body: JSON.stringify({
             title,

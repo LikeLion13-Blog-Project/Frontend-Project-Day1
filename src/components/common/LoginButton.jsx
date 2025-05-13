@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export default function LoginButton({ isLogin }) {
   useEffect(() => {
-    const accessToken = localStorage.getItem("access_token");
+    const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       console.log("로그인");
     } else {

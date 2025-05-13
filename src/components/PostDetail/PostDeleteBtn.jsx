@@ -4,12 +4,13 @@ import DeleteModal from "../common/DeleteModal";
 import { useNavigate } from "react-router-dom";
 
 const PostDeleteBtn = ({ data }) => {
-  const [renderMoadal, setRenderModal] = useState(false);
+  // renderModal: 모달을 렌더링할지 여부
+  // isVisible: 모달이 보이는지 여부로, 모달의 opacity를 조절
+  const [renderModal, setRenderModal] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
 
   const deletePost = async () => {
-    let password = prompt("비밀번호를 입력하세요.");
-    if (password === null) return;
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/articles/${data?.id}`,
@@ -17,20 +18,15 @@ const PostDeleteBtn = ({ data }) => {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
-          body: JSON.stringify({
-            password: password,
-          }),
         }
       );
-
       const parsedData = await response.json();
-
       if (!response.ok) {
         throw new Error(parsedData.message || "something went wrong");
       }
-      //   alert(parsedData.message);
+      alert("게시글이 삭제되었습니다.");
       setRenderModal(false);
       navigate("/");
     } catch (error) {
@@ -40,24 +36,28 @@ const PostDeleteBtn = ({ data }) => {
     }
   };
   const handleDelete = () => {
+    setIsVisible(true);
     setRenderModal(true);
   };
 
   const handleCancelBtn = () => {
-    setRenderModal(false);
+    setTimeout(() => {
+      setRenderModal(false);
+    }, 200);
+    setIsVisible(false);
   };
   return (
     <>
-      <StyledModal>
-        {/* {renderMoadal && (
+      <StyledModal isVisible={isVisible}>
+        {renderModal && (
           <DeleteModal
             isPost={true}
             handleDeleteBtn={deletePost}
             handleCancelBtn={handleCancelBtn}
           />
-        )} */}
+        )}
       </StyledModal>
-      <StyledIcon name="trash-outline" onClick={deletePost} />
+      <StyledIcon name="trash-outline" onClick={handleDelete} />
     </>
   );
 };
@@ -71,6 +71,8 @@ const StyledIcon = styled("ion-icon")`
 `;
 
 const StyledModal = styled.div`
+  opacity: ${(props) => (props.isVisible ? 1 : 0)};
+  transition: opacity 0.2s ease-in-out;
   position: fixed;
   top: 50%;
   left: 50%;
