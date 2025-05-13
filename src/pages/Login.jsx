@@ -28,8 +28,8 @@ export default function Login() {
         }
       );
       if (!response.ok) {
-        throw new Error("something went wrong");
         alert("아이디 또는 비밀번호가 잘못되었습니다.");
+        throw new Error("something went wrong");
       } else {
         const result = await response.json();
         localStorage.setItem("accessToken", result.data.token);
