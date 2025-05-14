@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function WriteButton({ disabled }) {
+export default function WriteButton({ disabled, isEdit }) {
   return (
     <WriteButtonWrapper type="submit" disabled={disabled} $disabled={disabled}>
-      작성하기
+      {isEdit ? "수정하기" : "작성하기"}
     </WriteButtonWrapper>
   );
 }

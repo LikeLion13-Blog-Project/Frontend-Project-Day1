@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 
 const CommentDeleteBtn = ({ commentId, onCommentPosted }) => {
@@ -15,7 +14,7 @@ const CommentDeleteBtn = ({ commentId, onCommentPosted }) => {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
           body: JSON.stringify({ password }),
         }
