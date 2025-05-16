@@ -1,19 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import DeleteModal from "../common/DeleteModal";
-import { useNavigate } from "react-router-dom";
+import DeleteModal from "../../common/DeleteModal";
 
-const PostDeleteBtn = ({ data }) => {
-  // renderModal: 모달을 렌더링할지 여부
-  // isVisible: 모달이 보이는지 여부로, 모달의 opacity를 조절
+const CommentDeleteBtn = ({ commentId, onCommentPosted }) => {
   const [renderModal, setRenderModal] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const navigate = useNavigate();
 
-  const deletePost = async () => {
+  const handleDeleteComment = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/articles/${data?.id}`,
+        `${import.meta.env.VITE_API_URL}/comments/${commentId}`,
         {
           method: "DELETE",
           headers: {
@@ -22,19 +18,21 @@ const PostDeleteBtn = ({ data }) => {
           },
         }
       );
-      const parsedData = await response.json();
+
+      const result = await response.json();
+
       if (!response.ok) {
-        throw new Error(parsedData.message || "something went wrong");
+        throw new Error(result.message);
       }
-      alert("게시글이 삭제되었습니다.");
-      setRenderModal(false);
-      navigate("/");
     } catch (error) {
-      console.error("Error deleting article data:", error);
+      console.error("Error deleting comment:", error);
       alert(error.message);
       setRenderModal(false);
+    } finally {
+      onCommentPosted();
     }
   };
+
   const handleDelete = () => {
     setIsVisible(true);
     setRenderModal(true);
@@ -46,28 +44,43 @@ const PostDeleteBtn = ({ data }) => {
     }, 200);
     setIsVisible(false);
   };
+
   return (
     <>
       <StyledModal isVisible={isVisible}>
         {renderModal && (
           <DeleteModal
-            isPost={true}
-            handleDeleteBtn={deletePost}
+            isPost={false}
+            handleDeleteBtn={handleDeleteComment}
             handleCancelBtn={handleCancelBtn}
           />
         )}
       </StyledModal>
-      <StyledIcon name="trash-outline" onClick={handleDelete} />
+      <Button onClick={() => handleDelete()}>
+        <StyledIcon name="trash-outline" />
+      </Button>
     </>
   );
 };
 
-export default PostDeleteBtn;
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 0.5rem;
+
+  &:hover {
+    background-color: var(--surface-primary);
+  }
+`;
 
 const StyledIcon = styled("ion-icon")`
   font-size: 2rem;
   color: var(--icon-tertiary);
-  cursor: pointer;
 `;
 
 const StyledModal = styled.div`
@@ -78,3 +91,5 @@ const StyledModal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
+
+export default CommentDeleteBtn;

@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function HeaderSection({ filter, onChangeFilter }) {
-  const [showOrders, setShowOrders] = useState(false);
   const navigate = useNavigate();
+
+  const [showOrders, setShowOrders] = useState(false);
 
   const onClickOrder = () => {
     setShowOrders(!showOrders);
@@ -38,6 +39,15 @@ export default function HeaderSection({ filter, onChangeFilter }) {
               <div
                 className="order-item"
                 onClick={() => {
+                  onChangeFilter("인기순");
+                  setShowOrders(false);
+                }}
+              >
+                인기순
+              </div>
+              <div
+                className="order-item"
+                onClick={() => {
                   onChangeFilter("댓글순");
                   setShowOrders(false);
                 }}
@@ -61,10 +71,12 @@ const HeaderSectionWrapepr = styled.section`
 
   > div {
     display: flex;
+    align-items: center;
     gap: 1.2rem;
+
     .title {
       color: var(--text-primary, #171719);
-      font-family: Pretendard;
+
       font-size: 2rem;
       font-style: normal;
       font-weight: 700;
@@ -82,6 +94,14 @@ const HeaderSectionWrapepr = styled.section`
       justify-content: center;
       align-items: center;
       cursor: pointer;
+
+      //text
+      color: var(--icon-primary, #171719);
+      font-size: 1.3rem;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 138.5%; /* 18.005px */
+      letter-spacing: 0.252px;
     }
   }
 `;
@@ -95,7 +115,6 @@ const OrderList = styled.div`
   gap: 0.6rem;
   left: 0;
   top: 100%;
-
   border-radius: 0.8rem;
   border: 1px solid var(--line-secondary, rgba(112, 115, 124, 0.16));
   background-color: white;
@@ -113,7 +132,7 @@ const WriteButton = styled.button`
   color: var(--text-brand-invert, #fff);
 
   /* label/medium-bold */
-  font-family: Pretendard;
+
   font-size: 1.4rem;
   font-style: normal;
   font-weight: 700;

@@ -29,7 +29,7 @@ const WriteButtonWrapper = styled.button`
   text-align: center;
 
   /* label/large-bold */
-  font-family: Pretendard;
+
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 700;

@@ -26,7 +26,7 @@ const ContentSectionWrapper = styled.section`
     color: var(--text-tertiary, #878a93);
 
     /* label/medium-bold */
-    font-family: Pretendard;
+
     font-size: 1.4rem;
     font-style: normal;
     font-weight: 700;
@@ -44,7 +44,5 @@ const ContentSectionWrapper = styled.section`
 
     border-radius: 1rem;
     border: 1px solid var(--surface-secondary, rgba(112, 115, 124, 0.16));
-
-    font-family: Pretendard;
   }
 `;
