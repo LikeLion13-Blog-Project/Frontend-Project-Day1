@@ -23,7 +23,7 @@ const ListSectionWrapper = styled.section`
 `;
 
 const List = styled.ul`
-  & > li {
+  > li {
     border-bottom: 1px solid var(--line-secondary);
   }
 `;

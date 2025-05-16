@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { formatKoreanDate } from "../../utils/dateFormat";
+import { formatKoreanDate } from "../../../utils/dateFormat";
 import LikeBtn from "./LikeBtn";
 import PostEditBtn from "./PostEditBtn";
 import PostDeleteBtn from "./PostDeleteBtn";
 
 //todo: 삭제버튼 + api 구현하기
-const PostContent = ({ data, handlePostData }) => {
+const PostContent = ({ data, refreshPostData }) => {
   return (
     <PostContentWrapper>
       <Header>
@@ -18,7 +18,7 @@ const PostContent = ({ data, handlePostData }) => {
       </Header>
       <Content>{data?.content}</Content>
       <BtnSection>
-        <LikeBtn data={data} handlePostData={handlePostData} />
+        <LikeBtn data={data} refreshPostData={refreshPostData} />
         <BtnWrapper>
           <PostEditBtn data={data} />
           <PostDeleteBtn data={data} />

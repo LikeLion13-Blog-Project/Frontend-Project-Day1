@@ -9,6 +9,7 @@ export default function ListItem({
   author,
   createdAt,
   totalComments,
+  totalLike,
 }) {
   const navigate = useNavigate();
 
@@ -25,9 +26,9 @@ export default function ListItem({
         <ListItemDate>{formatKoreanDate(createdAt)}</ListItemDate>
       </div>
       <div className="info">
-        {/* <ion-icon name="heart-outline" />
-        <span>{totalLikes}</span>
-        <span>·</span> */}
+        <ion-icon name="heart-outline" />
+        <span>{totalLike}</span>
+        <span>·</span>
         <ion-icon name="chatbubble-outline" />
         <span>{totalComments}</span>
       </div>
@@ -51,11 +52,10 @@ const ListItemWrapper = styled.li`
     align-items: center;
     gap: 0.4rem;
     align-self: stretch;
-
     color: var(--text-tertiary, #878a93);
 
     /* label/small */
-    font-family: Pretendard;
+
     font-size: 1.3rem;
     font-style: normal;
     font-weight: 500;
@@ -68,7 +68,6 @@ const ListItemTitle = styled.div`
   color: var(--text-primary, #171719);
   text-overflow: ellipsis;
 
-  font-family: Pretendard;
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 700;

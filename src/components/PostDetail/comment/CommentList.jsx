@@ -1,10 +1,8 @@
 import CommentDeleteBtn from "./CommentDeleteBtn";
 import styled from "styled-components";
-import { formatKoreanDate } from "../../utils/dateFormat";
-// import CommentDeleteBtn from "./CommentDeleteBtn";
+import { formatKoreanDate } from "../../../utils/dateFormat";
 
-// 댓글 목록 섹션 컴포넌트
-const PostCommentList = ({ commentList, onCommentPosted }) => {
+const CommentList = ({ commentList, onCommentPosted }) => {
   return (
     <CommentListWrapper>
       {commentList.map((el) => (
@@ -26,7 +24,7 @@ const PostCommentList = ({ commentList, onCommentPosted }) => {
   );
 };
 
-export default PostCommentList;
+export default CommentList;
 
 const CommentListWrapper = styled.div`
   width: 100%;
@@ -48,7 +46,7 @@ const CommentBox = styled.div`
 const CommentBody = styled.div`
   h1 {
     color: var(--text-primary);
-    font-size: 15px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 700;
     line-height: 150%;
@@ -57,7 +55,7 @@ const CommentBody = styled.div`
 
   h3 {
     color: var(--text-primary, #171719);
-    font-size: 15px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 500;
     line-height: 150%; /* 22.5px */
@@ -71,7 +69,7 @@ const CommentFooter = styled.div`
   align-items: center;
   p {
     color: var(--text-tertiary, #878a93);
-    font-size: 13px;
+    font-size: 1.3rem;
     font-style: normal;
     font-weight: 500;
     line-height: 138.5%; /* 18.005px */

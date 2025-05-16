@@ -1,18 +1,16 @@
 import styled from "styled-components";
 import Logo from "../../../public/Logo.svg?react";
 import LoginButton from "./LoginButton";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(false);
-  useEffect(() => {}, []);
+
   return (
     <HeaderContainer>
       <HeaderWrapper>
         <Logo onClick={() => navigate("/")} />
-        <LoginButton isLogin={isLogin} />
+        <LoginButton />
       </HeaderWrapper>
     </HeaderContainer>
   );
@@ -23,6 +21,10 @@ const HeaderContainer = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  /* position: sticky; */
+  /* top: 0; */
+  background-color: var(--background-primary);
+  z-index: 1000;
 `;
 
 const HeaderWrapper = styled.div`
@@ -34,6 +36,7 @@ const HeaderWrapper = styled.div`
   padding: 1.2rem 1.6rem 1.2rem 2rem;
 
   > svg {
+    /* 로고 svg */
     cursor: pointer;
   }
 `;

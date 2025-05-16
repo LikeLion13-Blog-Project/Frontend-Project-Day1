@@ -48,7 +48,7 @@ const WriterSectionWrapper = styled.section`
       color: var(--text-tertiary, #878a93);
 
       /* label/medium-bold */
-      font-family: Pretendard;
+
       font-size: 1.4rem;
       font-style: normal;
       font-weight: 700;

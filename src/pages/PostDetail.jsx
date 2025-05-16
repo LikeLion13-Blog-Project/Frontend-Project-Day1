@@ -1,14 +1,12 @@
 import styled from "styled-components";
-import PostContent from "../components/PostDetail/PostContent";
-import PostWriteComment from "../components/PostDetail/PostWriteComment";
-import PostCommentList from "../components/PostDetail/PostCommentList";
+import PostContent from "../components/PostDetail/post/PostContent";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import WriteComment from "../components/PostDetail/comment/WriteComment";
+import CommentList from "../components/PostDetail/comment/CommentList";
 
-// 가독성 + 함수 재활용을 위해 컴포넌트 밖으로 빼줌
-export const getPostData = async (postId) => {
-  console.log(localStorage.getItem("accessToken"));
-
+// 가독성을 위해 컴포넌트 밖으로 빼줌
+const getPostData = async (postId) => {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/articles/${postId}`,
@@ -25,7 +23,6 @@ export const getPostData = async (postId) => {
       throw new Error("something went wrong");
     }
     const data = await response.json();
-
     return data.data;
   } catch (error) {
     console.error("Error fetching article data:", error);
@@ -53,7 +50,7 @@ export default function PostDetail() {
     setPostData(newPostData);
   };
 
-  // 코멘트 업데이트 위해 콜백 함수를 정의했습니다
+  // 데이터 업데이트 위해 콜백 함수를 정의했습니다
   const refreshPostData = async () => {
     const updated = await getPostData(postId);
     if (updated) {
@@ -62,17 +59,17 @@ export default function PostDetail() {
   };
 
   if (isLoading) {
-    return <div></div>;
+    return <div>loading...</div>;
   }
 
   return (
     <PostDetailWrapper>
-      <PostContent data={postData} handlePostData={handlePostData} />
-      <PostWriteComment
+      <PostContent data={postData} refreshPostData={refreshPostData} />
+      <WriteComment
         onCommentPosted={refreshPostData}
         commentList={postData?.comments}
       />
-      <PostCommentList
+      <CommentList
         onCommentPosted={refreshPostData}
         commentList={postData?.comments}
       />

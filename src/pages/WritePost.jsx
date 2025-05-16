@@ -4,26 +4,20 @@ import ContentSection from "../components/WritePost/ContentSection";
 import WriteButton from "../components/WritePost/WriteButton";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import WriterSection from "../components/WritePost/WriterSection";
-
-// ✅ TODO
-// 1. author, password 추가
 
 export default function WritePost() {
-  const [author, setAuthor] = useState("");
-  const [password, setPassword] = useState("");
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [disabled, setDisabled] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const editingPostData = location.state?.post;
 
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [disabled, setDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
   // 수정하기 버튼으로 리디렉션 시 컴포넌트 마운트 시 전달된 state를 저장하는 기능 수행행
   useEffect(() => {
     if (editingPostData) {
-      setAuthor(editingPostData.author);
       setTitle(editingPostData.title);
       setContent(editingPostData.content);
     }
@@ -36,14 +30,6 @@ export default function WritePost() {
 
   const onChangeContent = (e) => {
     setContent(e.target.value);
-  };
-
-  const onChangeAuthor = (e) => {
-    setAuthor(e.target.value.trim());
-  };
-
-  const onChangePassword = (e) => {
-    setPassword(e.target.value.trim());
   };
 
   const onSubmit = async (e) => {
@@ -61,14 +47,11 @@ export default function WritePost() {
           method: editingPostData ? "PUT" : "POST",
           headers: {
             "Content-Type": "application/json",
-            // ✅ 일다 여기 토큰 네임 임시
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
           body: JSON.stringify({
             title,
             content,
-            author,
-            password,
           }),
         }
       );
@@ -78,8 +61,6 @@ export default function WritePost() {
       if (!response.ok) {
         throw new Error(parsedData.message || "something went wrong");
       }
-
-      //console.log("Post created:", data);
 
       navigate("/");
     } catch (error) {
@@ -91,21 +72,15 @@ export default function WritePost() {
   };
 
   useEffect(() => {
-    if (title && content && author && password) {
+    if (title && content) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [title, content, author, password]);
+  }, [title, content]);
 
   return (
     <WritePostContainer onSubmit={onSubmit}>
-      <WriterSection
-        author={author}
-        onChangeAuthor={onChangeAuthor}
-        password={password}
-        onChangePassword={onChangePassword}
-      />
       <TitleSection title={title} onChangeTitle={onChangeTitle} />
       <ContentSection content={content} onChangeContent={onChangeContent} />
       <WriteButton disabled={disabled} isEdit={editingPostData} />
