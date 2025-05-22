@@ -6,7 +6,7 @@ import WritePost from "./pages/WritePost";
 import HeaderLayout from "./components/common/Layout";
 import LoginGuard from "./components/common/LoginGuard";
 
-const ProtectedHome = LoginGuard(Home);
+// const ProtectedHome = LoginGuard(Home);
 const ProtectedWritePost = LoginGuard(WritePost);
 const ProtectedPostDetail = LoginGuard(PostDetail);
 
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <ProtectedHome />,
+        element: <Home />,
       },
       {
         path: "login",

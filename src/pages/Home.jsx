@@ -22,7 +22,7 @@ export default function Home() {
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+              // Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
           }
         );
@@ -30,7 +30,6 @@ export default function Home() {
         if (!response.ok) {
           throw new Error("something went wrong");
         }
-
         const data = await response.json();
         setPosts(data.data.reverse());
       } catch (error) {
