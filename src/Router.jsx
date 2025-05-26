@@ -4,7 +4,6 @@ import PostDetail from "./pages/PostDetail";
 import WritePost from "./pages/WritePost";
 import HeaderLayout from "./components/common/Layout";
 import LoginGuard from "./components/common/LoginGuard";
-import Login from "./pages/Login";
 
 const ProtectedWritePost = LoginGuard(WritePost);
 const ProtectedPostDetail = LoginGuard(PostDetail);
