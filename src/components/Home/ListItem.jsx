@@ -19,18 +19,18 @@ export default function ListItem({
 
   return (
     <ListItemWrapper onClick={handleClick}>
-      <ListItemTitle>{title}</ListItemTitle>
+      <ListItemTitle>{}</ListItemTitle>
       <div className="info">
-        <ListItemAuthor>{author}</ListItemAuthor>
+        <ListItemAuthor>{}</ListItemAuthor>
         <span>·</span>
-        <ListItemDate>{formatKoreanDate(createdAt)}</ListItemDate>
+        <ListItemDate>{formatKoreanDate()}</ListItemDate>
       </div>
       <div className="info">
         <ion-icon name="heart-outline" />
-        <span>{totalLike}</span>
+        <span>{}</span>
         <span>·</span>
         <ion-icon name="chatbubble-outline" />
-        <span>{totalComments}</span>
+        <span>{}</span>
       </div>
     </ListItemWrapper>
   );

@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
 import PostDetail from "./pages/PostDetail";
 import WritePost from "./pages/WritePost";
 import HeaderLayout from "./components/common/Layout";
 import LoginGuard from "./components/common/LoginGuard";
+import Login from "./pages/Login";
 
 const ProtectedWritePost = LoginGuard(WritePost);
 const ProtectedPostDetail = LoginGuard(PostDetail);

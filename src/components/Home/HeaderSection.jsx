@@ -19,44 +19,6 @@ export default function HeaderSection({ filter, onChangeFilter }) {
     <HeaderSectionWrapepr>
       <div>
         <div className="title">게시판</div>
-        <div className="order" onClick={onClickOrder}>
-          <span>{filter}</span>
-          <CaretDownWrapper $showOrders={showOrders}>
-            <ion-icon name="caret-down-outline" />
-          </CaretDownWrapper>
-
-          {showOrders && (
-            <OrderList className="orders">
-              <div
-                className="order-item"
-                onClick={() => {
-                  onChangeFilter("최신순");
-                  setShowOrders(false);
-                }}
-              >
-                최신순
-              </div>
-              <div
-                className="order-item"
-                onClick={() => {
-                  onChangeFilter("인기순");
-                  setShowOrders(false);
-                }}
-              >
-                인기순
-              </div>
-              <div
-                className="order-item"
-                onClick={() => {
-                  onChangeFilter("댓글순");
-                  setShowOrders(false);
-                }}
-              >
-                댓글순
-              </div>
-            </OrderList>
-          )}
-        </div>
       </div>
       <WriteButton onClick={onClickWriteButton}>글쓰기</WriteButton>
     </HeaderSectionWrapepr>

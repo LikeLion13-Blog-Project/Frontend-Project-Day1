@@ -1,64 +1,41 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 
 export default function Login() {
-  const navigate = useNavigate();
-
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
+    // ✅ submit 시 리로드되는 것을 방지하기 위해 preventDefault를 사용해준다.
     e.preventDefault();
 
-    // 아이디나 비밀번호가 비어있으면 제출을 막아야 한다.
-    if (!id || !password) {
-      alert("아이디와 비밀번호를 모두 입력하세요.");
-      return;
-    }
+    // ✅ 아이디나 비밀번호가 비어있으면 제출을 막아야 한다.
 
+    // ✅ response 변수를 완성하고 로그인 API를 사용해 봅시다.
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            // 명세서를 참고해서 정확한 필드명을 입력하는것이 중요하다.
-            userId: id,
-            password,
-          }),
-        }
-      );
+      const response = [];
+
       if (!response.ok) {
-        alert("아이디 또는 비밀번호가 잘못되었습니다.");
+        // ✅ 로그인 실패 시 아이디 또는 비밀번호가 잘못되었다는 경고창을 띄워봅시다.
+
         throw new Error("something went wrong");
       }
 
-      // 로그인 성공 시, accessToken을 localStorage에 저장하고 메인 페이지로 이동
+      // ✅ 로그인 성공 시, accessToken을 localStorage에 저장하고 메인 페이지로 이동
       const result = await response.json();
-      localStorage.setItem("accessToken", result.data.token);
-      navigate("/");
     } catch (error) {
       console.error("Error creating post:", error);
     }
   };
 
   return (
-    <LoginForm onSubmit={handleSubmit}>
+    <LoginForm>
       <h1>로그인</h1>
       <label htmlFor="id">
         <span>아이디</span>
-        <input
-          id="id"
-          type="text"
-          placeholder="아이디를 입력하세요"
-          onChange={(e) => setId(e.target.value)}
-        />
+        <input id="id" type="text" placeholder="아이디를 입력하세요" />
       </label>
       <label htmlFor="password">
         <span>비밀번호</span>
@@ -66,7 +43,6 @@ export default function Login() {
           id="password"
           type={isPasswordVisible ? "text" : "password"}
           placeholder="비밀번호를 입력하세요"
-          onChange={(e) => setPassword(e.target.value)}
         />
         <StyledIcon
           onClick={() => setIsPasswordVisible(!isPasswordVisible)}
